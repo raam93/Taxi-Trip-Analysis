@@ -1,0 +1,68 @@
+
+working directory: src
+
+*********************** COMPILE ***********************
+*******************************************************
+
+mvn clean package
+
+
+************************* RUN *************************
+*********** TRIP_LENGTH_DISTRIBUTION (SPARK)***********
+
+$SPARK_INSTALL/bin/spark-submit --class Assignment3.LengthDistribution --master local[*] Excercise1_spark/target/Excercise1.jar <PATH_TO_INPUT_FILE> <PATH_TO_OUTPUT_FILE> <NUMBER_OF_BINS> <FIND_OUTLIERS?:true|false>
+
+ex:
+$SPARK_INSTALL/bin/spark-submit --class Assignment3.LengthDistribution --master local[*] Excercise1_spark/target/Excercise1.jar /data/2010_03.trips Excercise1_spark/output 10 true
+
+
+************************* RUN *************************
+**************** AIRPORT_RIDE_REVENUE *****************
+
+hadoop jar Excercise2/target/Excercise2.jar Assignment3.AirportRideRevenueMain <PATH_TO_INPUT_FILE> <PATH_TO_OUTPUT_FILE> <NO_OF_REDUCERS_STAGE_1> <NO_OF_REDUCERS_STAGE_2> <CONSIDER_OVERLAPPING_SEGMENTS?:true|false> <RECONSTRUCT_AIRPORT_TRIPS_ONLY?:true|false>
+
+ex: 
+hadoop jar Excercise2/target/Excercise2.jar Assignment3.AirportRideRevenueMain /data/all.segments /user/r0605648/output 9 1 true true
+
+
+
+
+
+
+
+***** TRIP_LENGTH_DISTRIBUTION (LOCAL NON-SPARK) ******
+
+********** COMPILE (Requires Scala 2.12.1) ************
+
+$SCALA_HOME/bin/scalac -d Excercise1_non_spark/ Excercise1_non_spark/LengthDistributionLocal.scala
+
+************************* RUN *************************
+
+$SCALA_HOME/bin/scala -classpath Excercise1_non_spark LengthDistributionLocal <PATH_TO_INPUT_FILE> <PATH_TO_OUTPUT_FILE> <NUMBER_OF_BINS> <FIND_OUTLIERS?:true|false>
+
+ex:
+$SCALA_HOME/bin/scala -classpath Excercise1_non_spark LengthDistributionLocal /data/2010_03.trips Excercise1_non_spark/output.txt 10 true
+
+
+
+
+
+
+<<-----------------------PLOT------------------------>>
+
+*********** TRIP_LENGTH_DISTRIBUTION (SPARK)***********
+
+python plot.py <PATH_TO_OUTPUT_FILE> 'Length Distribution'
+
+ex: python plot.py Excercise1_non_spark/output.txt 'Length Distribution'
+
+
+**************** AIRPORT_RIDE_REVENUE *****************
+
+python plot.py <PATH_TO_OUTPUT_FILE> 'Airport Revenue'
+
+python plot.py Excercise2/output/Airport_Trips_Revenue-r-00000 'Airport Revenue'
+
+
+<<--------------------------------------------------->>
+
