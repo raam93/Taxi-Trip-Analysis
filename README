@@ -1,7 +1,12 @@
-This file contains the commands for compiling and running. 
+This file contains a brief description of the project and the commands for compiling and running. 
 For detailed description of the task, see Task.pdf.
 For detailed report on the solution, See report.pdf
 The dataset for this project is taken from: http://people.cs.kuleuven.be/~toon.vancraenendonck/bdap_files/
+
+****************** BRIEF DESCRIPTION ******************
+*******************************************************
+
+This project contains two subtasks to analyze the GPS tracks data of taxis in San Francisco. First, the distribution of trip lengths in a month is computed locally in a Spark environment and its efficiency is compared with a non-Spark local implementation. The objective is to analyze the performance of the single-node Spark implementation for this small dataset. I showed that the non-spark implementation is somewhat faster than the single node spark execution as there is no overhead to organize the data for shuffle in the former method. The second task is to identify airport trips and compute an estimate of the total revenue obtained from them. For this task, I designed various Map and Reduce functions (in Java) to exploit MapReduce with data whose size is greater than 4GB and to implement an efficient and scalable approach to solve the task.
 
 
 working directory: src
